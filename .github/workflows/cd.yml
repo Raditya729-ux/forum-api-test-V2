@@ -1,0 +1,19 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Trigger Railway deployment
+        run: |
+          curl -X POST "${{ secrets.RAILWAY_DEPLOY_HOOK }}"
